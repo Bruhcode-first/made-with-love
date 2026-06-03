@@ -1,14 +1,83 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
-  <link rel="icon" type="image/x-icon" href="png-transparent-heart-red-heart-thumbnail.png">
   <meta charset="UTF-8">
-  <title>A HEART FOR SALISA</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#04020a">
+  <meta name="description" content="A sky written for Injy."> 
+  <title>For you my cute Injy ❤</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>❤</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Great+Vibes&family=Playfair+Display:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./style.css">
-
 </head>
 <body>
-<canvas id="heart"></canvas>
-  <script  src="./script.js"></script>
+  <div class="intro" id="intro">
+    <div class="intro__glow" aria-hidden="true"></div>
+    <div class="intro__inner">
+      <p class="intro__eyebrow">before anything else</p>
+      <h1 class="intro__title">this is for <span>Injy</span></h1>
+      <p class="intro__lead">I built a sky that beats like a heart —<br>and every light in it knows your name.</p>
+      <button type="button" class="begin-btn" id="beginBtn">
+        <span class="begin-btn__text">open the sky</span>
+        <span class="begin-btn__shine" aria-hidden="true"></span>
+      </button>
+      <p class="intro__note">best with sound on · headphones if you can</p>
+    </div>
+  </div>
+
+  <canvas id="sky" aria-hidden="true"></canvas>
+  <div class="vignette" aria-hidden="true"></div>
+  <div class="pulse-ring" id="pulseRing" aria-hidden="true"></div>
+  <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+
+  <!-- Now playing card (top-right) — full song from song.mp3, art from SPOTIFY_URL in script.js -->
+  <div class="now-playing" id="nowPlaying" hidden aria-label="Now playing"></div>
+
+  <div class="hud" id="hud" hidden>
+    <p class="hud__hint" id="hudHint">tap anywhere — paint the night with light</p>
+    <button type="button" class="hud__sound" id="soundBtn" aria-pressed="false" aria-label="Toggle sound">
+      <span class="hud__sound-wave" aria-hidden="true"></span>
+      sound
+    </button>
+    <button type="button" class="letter-btn" id="letterBtn" aria-expanded="false" aria-controls="letter">
+      <span class="letter-btn__heart" aria-hidden="true">♥</span>
+      <span class="letter-btn__text">read my letter</span>
+    </button>
+  </div>
+
+  <article class="letter" id="letter" hidden aria-hidden="true">
+    <div class="letter__card">
+      <button type="button" class="letter__close" id="letterClose" aria-label="Close letter">
+        <span aria-hidden="true">×</span>
+      </button>
+
+      <!-- ✏️  EDIT YOUR MESSAGE BELOW. Keep the data-reveal attributes so each line still fades in.
+           A few lines you can mix in for inspiration:
+             • "You're the first thing I think about, and the last thing I want to stop thinking about."
+             • "I didn't plan on you — you're just the best thing that was never on the schedule."
+             • "If I ever get one wish, I'd spend it making sure you never doubt how rare you are."
+             • "Every good song started making sense the moment I thought of you."
+             • "I'm not trying to sweep you off your feet. I just don't want to imagine the view without you in it."
+      -->
+      <header class="letter__head">
+        <p class="letter__eyebrow" data-reveal>for you, and only you</p>
+        <h2 class="letter__name" data-reveal>Injy</h2>
+      </header>
+      <div class="letter__body">
+        <p data-reveal>Some people you meet and forget. And then there's you — impossible to look away from, impossible to get out of my head.</p>
+        <p data-reveal>You have this way of making an ordinary day feel like one I'd happily live again. One laugh, one glance, and somehow everything gets lighter.</p>
+        <p data-reveal>I'm not always great with words out loud, so I built you a sky instead. Every light in it is just me trying to say one thing — I like you. A lot.</p>
+      </div>
+      <footer class="letter__foot">
+        <p class="letter__sign" data-reveal>— yours, more than you probably know</p>
+        <p class="letter__secret" id="letterSecret">P.S. If you're smiling right now… that was the entire plan.</p>
+        <button type="button" class="finale-btn" id="finaleBtn">make the sky celebrate ✦</button>
+      </footer>
+    </div>
+  </article>
+
+  <script src="./script.js"></script>
 </body>
 </html>
