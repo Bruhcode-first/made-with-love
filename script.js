@@ -42,6 +42,87 @@
   var SONG_VOLUME = 0.88;       // default volume (0–1) — also adjustable with the slider on screen
   var VOLUME_STORAGE_KEY = "injy-song-volume";
 
+  /* Secret visit counter — counts each browser session once, stored online.
+     Tap the faint ✦ in the top-left corner 4× quickly to reveal the total. */
+  var VISIT_COUNTER_KEY = "heart-injy-sky-youse-7k2m";
+  var VISIT_COUNTER_HIT = "https://countapi.mileshilliard.com/api/v1/hit/";
+  var VISIT_COUNTER_GET = "https://countapi.mileshilliard.com/api/v1/get/";
+  var VISIT_SESSION_KEY = "injy-sky-visit-logged";
+
+  function recordVisit() {
+    try {
+      if (sessionStorage.getItem(VISIT_SESSION_KEY)) return;
+      sessionStorage.setItem(VISIT_SESSION_KEY, "1");
+    } catch (e) {}
+    fetch(VISIT_COUNTER_HIT + VISIT_COUNTER_KEY, { method: "GET", mode: "cors" }).catch(
+      function () {}
+    );
+  }
+
+  function fetchVisitCount(cb) {
+    fetch(VISIT_COUNTER_GET + VISIT_COUNTER_KEY, { method: "GET", mode: "cors" })
+      .then(function (r) {
+        return r.json();
+      })
+      .then(function (d) {
+        var v = d && d.value !== undefined ? parseInt(d.value, 10) : null;
+        cb(v !== null && !isNaN(v) ? v : null);
+      })
+      .catch(function () {
+        cb(null);
+      });
+  }
+
+  function setupVisitReveal() {
+    var hotspot = document.getElementById("visitHotspot");
+    var toast = document.getElementById("visitToast");
+    if (!hotspot || !toast) return;
+
+    var clicks = 0;
+    var resetTimer = null;
+    var hideTimer = null;
+
+    function hideToast() {
+      toast.classList.remove("is-visible");
+      hideTimer = setTimeout(function () {
+        toast.hidden = true;
+      }, 400);
+    }
+
+    function showToast(count) {
+      toast.textContent =
+        count === null ? "visits: unavailable" : count + " visit" + (count === 1 ? "" : "s");
+      toast.hidden = false;
+      requestAnimationFrame(function () {
+        toast.classList.add("is-visible");
+      });
+      clearTimeout(hideTimer);
+      hideTimer = setTimeout(hideToast, 8000);
+    }
+
+    hotspot.addEventListener("click", function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      clicks++;
+      hotspot.classList.add("is-tapping");
+      setTimeout(function () {
+        hotspot.classList.remove("is-tapping");
+      }, 180);
+      clearTimeout(resetTimer);
+      resetTimer = setTimeout(function () {
+        clicks = 0;
+      }, 3200);
+      if (clicks >= 4) {
+        clicks = 0;
+        fetchVisitCount(showToast);
+      }
+    });
+
+    hotspot.addEventListener("pointerdown", function (e) {
+      e.stopPropagation();
+    });
+  }
+
   /* Browser tab title. Leave "" to use whatever you put in index.html <title>.
      Or set here; use {name} for her name (e.g. "For you my cute {name} ❤"). */
   var PAGE_TITLE = "";
@@ -362,6 +443,9 @@
     var nowPlaying = document.getElementById("nowPlaying");
     var letterBtn = document.getElementById("letterBtn");
     var letterClose = document.getElementById("letterClose");
+
+    recordVisit();
+    setupVisitReveal();
 
     var sound = new Soundscape();
 

@@ -836,3 +836,60 @@ body.is-playing {
     padding-bottom: 2rem;
   }
 }
+
+/* --- secret visit counter (top-left ✦, tap 4×) --- */
+.visit-hotspot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 56px;
+  height: 56px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: default;
+  z-index: 25;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.visit-hotspot__hint {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  font-size: 0.62rem;
+  line-height: 1;
+  color: rgba(255, 160, 200, 0.28);
+  pointer-events: none;
+  transition: color 0.15s ease, transform 0.15s ease, text-shadow 0.15s ease;
+}
+
+.visit-hotspot.is-tapping .visit-hotspot__hint {
+  color: rgba(255, 190, 220, 0.65);
+  transform: scale(1.25);
+  text-shadow: 0 0 10px rgba(255, 100, 170, 0.45);
+}
+
+.visit-toast {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 26;
+  padding: 0.4rem 0.65rem;
+  border-radius: 8px;
+  background: rgba(18, 6, 16, 0.82);
+  border: 1px solid rgba(255, 140, 190, 0.25);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  font-variant-numeric: tabular-nums;
+  color: rgba(255, 210, 230, 0.88);
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.visit-toast.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
