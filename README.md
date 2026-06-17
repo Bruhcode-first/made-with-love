@@ -1,4 +1,4 @@
-# For Injy — Written in Stars
+# For Menna — Written in Stars
 
 A cinematic particle heart with her name in the sky, a letter, and your song.
 
